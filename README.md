@@ -36,7 +36,8 @@
 
 | Name                | Label                      | Notes               |
 | ------------------- | -------------------------- | ------------------- |
-| `opus-4.6`          | Claude Opus 4.6 (Thinking) | Default model       |
+| `opus-4.6`          | Claude Opus 4.6 (Thinking)   | Default model       |
+| `sonnet-4.6`        | Claude Sonnet 4.6 (Thinking) | —                   |
 | `opus-4.5`          | Claude Opus 4.5 (Thinking) | —                   |
 | `gemini-3-pro`      | Gemini 3 Pro (High)        | Default Pro tier    |
 | `gemini-3-pro-high` | Gemini 3 Pro (High)        | Alias               |
