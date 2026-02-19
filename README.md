@@ -35,15 +35,18 @@
 
 ## Models
 
-| Name                | Label                        | Notes               |
-| ------------------- | ---------------------------- | ------------------- |
-| `opus-4.6`          | Claude Opus 4.6 (Thinking)   | Default model       |
-| `sonnet-4.6`        | Claude Sonnet 4.6 (Thinking) | —                   |
-| `opus-4.5`          | Claude Opus 4.5 (Thinking)   | —                   |
-| `gemini-3-pro`      | Gemini 3 Pro (High)          | Default Pro tier    |
-| `gemini-3-pro-high` | Gemini 3 Pro (High)          | Alias               |
-| `gemini-3-pro-low`  | Gemini 3 Pro (Low)           | —                   |
-| `gemini-3-flash`    | Gemini 3 Flash               | Recommended for dev |
+| Name                  | Label                        | Notes               |
+| --------------------- | ---------------------------- | ------------------- |
+| `opus-4.6`            | Claude Opus 4.6 (Thinking)   | Default model       |
+| `sonnet-4.6`          | Claude Sonnet 4.6 (Thinking) | —                   |
+| `opus-4.5`            | Claude Opus 4.5 (Thinking)   | —                   |
+| `gemini-3.1-pro`      | Gemini 3.1 Pro (High)        | Default 3.1 tier    |
+| `gemini-3.1-pro-high` | Gemini 3.1 Pro (High)        | Alias               |
+| `gemini-3.1-pro-low`  | Gemini 3.1 Pro (Low)         | —                   |
+| `gemini-3-pro`        | Gemini 3 Pro (High)          | Default Pro tier    |
+| `gemini-3-pro-high`   | Gemini 3 Pro (High)          | Alias               |
+| `gemini-3-pro-low`    | Gemini 3 Pro (Low)           | —                   |
+| `gemini-3-flash`      | Gemini 3 Flash               | Recommended for dev |
 
 ## Quick Start
 
@@ -53,6 +56,9 @@ zg init
 
 # Start the proxy daemon
 zg start
+
+# Update both zerogravity and zg to the latest release
+zg update
 
 # Check status (version, endpoints, quota, usage)
 zg status
