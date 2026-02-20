@@ -263,6 +263,31 @@ ZEROGRAVITY_STATE_DB=/path/to/state.vscdb ./zerogravity --headless
 
 </details>
 
+## Environment Variables
+
+| Variable                      | Default                 | Description                                                               |
+| ----------------------------- | ----------------------- | ------------------------------------------------------------------------- |
+| `ZEROGRAVITY_TOKEN`           | —                       | OAuth token (`ya29.xxx`). Optional if `state.vscdb` is available          |
+| `ZEROGRAVITY_API_KEY`         | —                       | Protect proxy from unauthorized access. Comma-separated for multiple keys |
+| `ZEROGRAVITY_STATE_DB`        | Auto-detected           | Path to Antigravity's `state.vscdb` for auto token refresh                |
+| `ZEROGRAVITY_UPSTREAM_PROXY`  | —                       | Upstream HTTPS proxy for outbound traffic (`http://proxy:8080`)           |
+| `ZEROGRAVITY_LS_PATH`         | Auto-detected           | Path to LS binary (set automatically in Docker)                           |
+| `ZEROGRAVITY_CONFIG_DIR`      | `~/.config/zerogravity` | Config directory                                                          |
+| `ZEROGRAVITY_DATA_DIR`        | `/tmp/.agcache`         | Standalone LS data directory                                              |
+| `ZEROGRAVITY_APP_ROOT`        | Auto-detected           | Antigravity app root directory                                            |
+| `ZEROGRAVITY_LS_USER`         | `zerogravity-ls`        | System user for UID-scoped LS isolation (Linux)                           |
+| `ZEROGRAVITY_MAX_RETRY_DELAY` | Internal default        | Max retry delay in seconds on rate limit errors                           |
+| `SSL_CERT_FILE`               | System default          | Custom CA certificate bundle path                                         |
+| `RUST_LOG`                    | `info`                  | Log level (`debug`, `info`, `warn`, `error`)                              |
+
+## Docker Volumes
+
+| Host Path               | Container Path                 | Purpose                                                                                                            |
+| ----------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
+| `~/.config/Antigravity` | `/root/.config/Antigravity:ro` | Auto-reads `state.vscdb` for token refresh. **Recommended** — enables auto-refresh without manual token management |
+
+> **Note:** Only one volume mount is needed. If Antigravity is not installed on the host, this mount is harmless (empty dir). You can also mount a single `state.vscdb` file — see [Auto-refresh with state.vscdb](#authentication) above.
+
 ## `zg` Commands
 
 | Command              | Description                                               |
