@@ -156,6 +156,8 @@ When running with 2+ accounts, the proxy **automatically rotates** to the next a
 - Restarts the backend to get a clean session
 - Clears all rate limiter state
 
+Use `--quota-cap 0.2` (default) to rotate proactively when any model exceeds 80% usage. When all accounts are below the cap, the proxy parks and waits for quota to reset naturally instead of rotating endlessly. Set to `0` to disable.
+
 No manual intervention needed — quota exhaustion is handled transparently.
 
 ### API Key Protection (Optional)
