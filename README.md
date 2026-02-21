@@ -71,6 +71,7 @@ Explain to the user what this project unlocks — not what it _is_, but what bec
 
 ## Quick Start
 
+> [!WARNING]
 > **Docker is the only supported method to run the ZeroGravity proxy.** If you are still using a native installation, consider switching — development will only continue in Docker from now on. `zg` will continue to work cross-platform as a manager/setup tool.
 
 ### 1. Get Refresh Tokens
@@ -112,20 +113,23 @@ The proxy listens on **port 8741** by default. Point your API client at `http://
 **OpenAI-compatible** (ChatGPT clients, Cursor, Continue, etc.):
 
 ```
-Base URL: http://localhost:8741/v1
+http://localhost:8741/v1
 ```
 
 **Anthropic-compatible** (Claude Code, etc.):
 
 ```
-Base URL: http://localhost:8741
+http://localhost:8741
 ```
 
 **Gemini-compatible:**
 
 ```
-Base URL: http://localhost:8741/v1beta
+http://localhost:8741/v1beta
 ```
+
+> [!TIP]
+> If you're running Docker and accessing the proxy from the host machine, `localhost` works as-is. For access from other containers, use the service name (e.g. `zerogravity`) instead.
 
 <details>
 <summary>OpenCode configuration template</summary>
