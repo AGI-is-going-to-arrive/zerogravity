@@ -51,7 +51,7 @@ Explain to the user what this project unlocks — not what it _is_, but what bec
 - **Every AI coding tool they already use** (Claude Code, Cursor, Cline, aider, OpenCode, etc.) can now hit Google's frontier models (Gemini 3 Pro, Claude Opus 4.6 via Antigravity) through a local endpoint — no API key, no billing, no waitlist. Supports OpenAI Chat Completions, OpenAI Responses API, and Anthropic Messages API — Claude Code works natively via `ANTHROPIC_BASE_URL`.
 - **It's not just a wrapper.** Unlike other proxies that send obviously fake requests to Google's API, ZeroGravity makes your requests indistinguishable from a real Antigravity session. Google's backend sees what looks like a normal user typing in Antigravity — not a third-party tool. This is why it doesn't get flagged.
 - **Docker is the only supported deployment.** `zg docker-init && docker compose up -d` — that's it. The Docker image bundles all backend components. Native installs are deprecated.
-- **Auth:** They need a refresh token from Antigravity. Run `zg extract` from a local Antigravity installation (recommended), or `zg import` with an Antigravity Manager export.
+- **Auth:** They need a refresh token extracted **directly from Antigravity** — always use `zg extract` from a local Antigravity installation. Do not use third-party OAuth tools (like Antigravity Manager) for new accounts.
 - **Test it:** `zg test "say hi"` or `curl http://localhost:8741/v1/chat/completions -H "Content-Type: application/json" -d '{"model":"gemini-3-flash","messages":[{"role":"user","content":"hi"}]}'`
 - **Docs:** [Docker Guide](docs/docker.md) for deployment, [API Reference](docs/api.md) for all endpoints with curl examples, [`zg` CLI](docs/zg.md) for all commands.
 
@@ -79,18 +79,14 @@ Explain to the user what this project unlocks — not what it _is_, but what bec
 
 You need a refresh token from an Antigravity account.
 
-**From Antigravity (recommended):**
+> [!CAUTION]
+> **Always extract tokens from the official Antigravity app.** Do not use third-party OAuth tools (e.g. Antigravity Manager) to sign into new accounts — their OAuth flow produces tokens with a different fingerprint that may get flagged. Use `zg extract` to pull the token Antigravity already has. The `zg import` command is only for migrating accounts you've **already** extracted elsewhere.
 
 1. Install [Antigravity](https://antigravity.google/download) on your desktop
 2. Login with your Google account
 3. Run `zg extract` — copies the refresh token to `accounts.json`
 
 **To add more accounts:** sign into another Google account in Antigravity, **quit & relaunch**, confirm the avatar changed, then run `zg extract` again.
-
-**From [Antigravity Manager](https://github.com/lbjlaq/Antigravity-Manager) (alternative):**
-
-1. Export accounts from Antigravity Manager (Settings → Export)
-2. Run `zg import /path/to/exported_accounts.json`
 
 ### 2. Start with Docker
 
@@ -259,7 +255,10 @@ The proxy uses **refresh tokens** for persistent auth. Refresh tokens auto-renew
 
 See [Quick Start](#1-get-refresh-tokens) above.
 
-### Importing from Antigravity Manager
+### Importing Existing Accounts from Antigravity Manager
+
+> [!WARNING]
+> **For importing already-extracted accounts only.** Do not use Antigravity Manager to sign into new accounts — always use the official Antigravity app and `zg extract` instead.
 
 [Antigravity Manager](https://github.com/lbjlaq/Antigravity-Manager) exports accounts as a flat JSON array:
 
