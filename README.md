@@ -83,7 +83,7 @@ You need a refresh token from an Antigravity account.
 
 1. Install [Antigravity](https://antigravity.google/download) on your desktop
 2. Login with your Google account
-3. Run `zg extract` — copies the refresh token to `accounts.json`
+3. Run `zg extract` — copies the refresh token to `accounts.json` (Linux: `~/.config/zerogravity/`, macOS: `~/Library/Application Support/zerogravity/`, Windows: `%APPDATA%\zerogravity\`)
 
 **To add more accounts:** sign into another Google account in Antigravity, **quit & relaunch**, confirm the avatar changed, then run `zg extract` again.
 
@@ -288,7 +288,15 @@ This auto-detects the format, converts it, and merges into your existing `accoun
 
 ### `accounts.json` Schema
 
-The proxy reads accounts from `~/.config/zerogravity/accounts.json`:
+The proxy reads accounts from `accounts.json` in the config directory:
+
+| OS      | Default path                                              |
+| ------- | --------------------------------------------------------- |
+| Linux   | `~/.config/zerogravity/accounts.json`                     |
+| macOS   | `~/Library/Application Support/zerogravity/accounts.json` |
+| Windows | `%APPDATA%\zerogravity\accounts.json`                     |
+
+> Override with `ZEROGRAVITY_CONFIG_DIR` env var.
 
 ```json
 {
