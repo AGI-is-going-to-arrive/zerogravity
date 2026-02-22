@@ -62,44 +62,44 @@ docker run -d --name zerogravity \
 
 ## Environment Variables
 
-| Variable                      | Default                 | Description                                                                   |
-| ----------------------------- | ----------------------- | ----------------------------------------------------------------------------- |
-| `ZEROGRAVITY_ACCOUNTS`        | —                       | Inline accounts: `email1:1//token1,email2:1//token2`                          |
-| `ZEROGRAVITY_TOKEN`           | —                       | Single OAuth access token (`ya29.xxx`) — expires in 60min                     |
-| `ZEROGRAVITY_API_KEY`         | —                       | Protect proxy from unauthorized access. Comma-separated for multiple keys     |
-| `ZEROGRAVITY_UPSTREAM_PROXY`  | —                       | Route outbound traffic through a proxy (`http://`, `socks5://`, `socks5h://`) |
-| `ZEROGRAVITY_LS_PATH`         | Auto-detected           | Path to backend binary (set automatically in Docker)                          |
-| `ZEROGRAVITY_CONFIG_DIR`      | `~/.config/zerogravity` | Config directory                                                              |
-| `ZEROGRAVITY_DATA_DIR`        | `/tmp/.agcache`         | Backend data directory                                                        |
-| `ZEROGRAVITY_APP_ROOT`        | Auto-detected           | Antigravity app root directory                                                |
-| `ZEROGRAVITY_STATE_DB`        | Auto-detected           | Path to Antigravity's state database (for token extraction)                   |
-| `ZEROGRAVITY_LS_USER`         | `zerogravity-ls`        | System user for process isolation (Linux)                                     |
-| `ZEROGRAVITY_MACHINE_ID_PATH` | Auto-detected           | Path to Antigravity's machine ID file                                         |
-| `ZEROGRAVITY_CLIENT_VERSION`  | Auto-detected           | Override the client version string                                            |
-| `ZEROGRAVITY_MAX_RETRY_DELAY` | Internal default        | Max retry delay in seconds on rate limit errors                               |
-| `SSL_CERT_FILE`               | System default          | Custom CA certificate bundle path                                             |
-| `RUST_LOG`                    | `info`                  | Log level (`debug`, `info`, `warn`, `error`)                                  |
+| Variable                      | Default                 | Description                                          | Example                     |
+| ----------------------------- | ----------------------- | ---------------------------------------------------- | --------------------------- |
+| `ZEROGRAVITY_ACCOUNTS`        | —                       | Inline accounts                                      | `user@gmail.com:1//0abc...` |
+| `ZEROGRAVITY_TOKEN`           | —                       | Single OAuth access token — expires in 60min         | `ya29.a0ARrdaM...`          |
+| `ZEROGRAVITY_API_KEY`         | —                       | Protect proxy from unauthorized access               | `my-secret-key`             |
+| `ZEROGRAVITY_UPSTREAM_PROXY`  | —                       | Route outbound traffic through a proxy               | `socks5://127.0.0.1:1080`   |
+| `ZEROGRAVITY_LS_PATH`         | Auto-detected           | Path to backend binary (set automatically in Docker) | `/usr/bin/antigravity_ls`   |
+| `ZEROGRAVITY_CONFIG_DIR`      | `~/.config/zerogravity` | Config directory                                     | `/etc/zerogravity`          |
+| `ZEROGRAVITY_DATA_DIR`        | `/tmp/.agcache`         | Backend data directory                               | `/var/lib/zerogravity`      |
+| `ZEROGRAVITY_APP_ROOT`        | Auto-detected           | Antigravity app root directory                       | `/opt/antigravity`          |
+| `ZEROGRAVITY_STATE_DB`        | Auto-detected           | Path to Antigravity's state database                 | `/path/to/state.vscdb`      |
+| `ZEROGRAVITY_LS_USER`         | `zerogravity-ls`        | System user for process isolation (Linux)            | `nobody`                    |
+| `ZEROGRAVITY_MACHINE_ID_PATH` | Auto-detected           | Path to Antigravity's machine ID file                | `/path/to/machineid`        |
+| `ZEROGRAVITY_CLIENT_VERSION`  | Auto-detected           | Override the client version string                   | `1.15.8`                    |
+| `ZEROGRAVITY_MAX_RETRY_DELAY` | Internal default        | Max retry delay in seconds on rate limit errors      | `120`                       |
+| `SSL_CERT_FILE`               | System default          | Custom CA certificate bundle path                    | `/etc/ssl/certs/ca.pem`     |
+| `RUST_LOG`                    | `info`                  | Log level                                            | `debug`                     |
 
 ### Customization
 
-| Variable                      | Default   | Description                                                                         |
-| ----------------------------- | --------- | ----------------------------------------------------------------------------------- |
-| `ZEROGRAVITY_QUOTA_CAP`       | `0.2`     | Per-account quota usage cap (0.0–1.0), triggers rotation. `0` to disable            |
-| `ZEROGRAVITY_SYSTEM_MODE`     | `stealth` | `stealth` = keep backend prompt, inject user override; `minimal` = replace entirely |
-| `ZEROGRAVITY_SENSITIVE_WORDS` | built-in  | Comma-separated client names to obfuscate, or `none` to disable                     |
-| `ZEROGRAVITY_MODEL_ALIASES`   | —         | Map custom model names: `gpt-4o:gemini-3-flash,gpt-4:opus-4.6`                      |
+| Variable                      | Default   | Description                                                              | Example                                |
+| ----------------------------- | --------- | ------------------------------------------------------------------------ | -------------------------------------- |
+| `ZEROGRAVITY_QUOTA_CAP`       | `0.2`     | Per-account quota usage cap (0.0–1.0), triggers rotation. `0` to disable | `0.5`                                  |
+| `ZEROGRAVITY_SYSTEM_MODE`     | `stealth` | `stealth` = keep backend prompt; `minimal` = replace entirely            | `minimal`                              |
+| `ZEROGRAVITY_SENSITIVE_WORDS` | built-in  | Comma-separated client names to obfuscate, or `none` to disable          | `Cursor,Windsurf`                      |
+| `ZEROGRAVITY_MODEL_ALIASES`   | —         | Map custom model names to internal models                                | `gpt-4o:gemini-3-flash,gpt-4:opus-4.6` |
 
 ### Request Queue
 
 Serializes generation requests to prevent thundering-herd failures when multiple clients hit the proxy simultaneously.
 
-| Variable                        | Default  | Description                                                |
-| ------------------------------- | -------- | ---------------------------------------------------------- |
-| `ZEROGRAVITY_QUEUE_ENABLED`     | `true`   | Set to `false`, `0`, or `no` to disable the queue entirely |
-| `ZEROGRAVITY_QUEUE_CONCURRENCY` | `2`      | Max concurrent requests to Google                          |
-| `ZEROGRAVITY_QUEUE_INTERVAL_MS` | `300`    | Anti-burst gap between consecutive requests (ms)           |
-| `ZEROGRAVITY_QUEUE_TIMEOUT_MS`  | `600000` | Max wait time in queue before HTTP 408                     |
-| `ZEROGRAVITY_QUEUE_MAX_SIZE`    | `50`     | Max queue depth; excess requests get HTTP 503              |
+| Variable                        | Default  | Description                                                | Example  |
+| ------------------------------- | -------- | ---------------------------------------------------------- | -------- |
+| `ZEROGRAVITY_QUEUE_ENABLED`     | `true`   | Set to `false`, `0`, or `no` to disable the queue entirely | `false`  |
+| `ZEROGRAVITY_QUEUE_CONCURRENCY` | `2`      | Max concurrent requests to Google                          | `4`      |
+| `ZEROGRAVITY_QUEUE_INTERVAL_MS` | `300`    | Anti-burst gap between consecutive requests (ms)           | `500`    |
+| `ZEROGRAVITY_QUEUE_TIMEOUT_MS`  | `600000` | Max wait time in queue before HTTP 408                     | `300000` |
+| `ZEROGRAVITY_QUEUE_MAX_SIZE`    | `50`     | Max queue depth; excess requests get HTTP 503              | `100`    |
 
 ## Updating
 
