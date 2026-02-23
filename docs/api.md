@@ -116,6 +116,16 @@ curl -X DELETE http://localhost:8741/v1/accounts \
   -d '{"email": "user@gmail.com"}'
 ```
 
+### Set Active Account (Runtime)
+
+Switches the active account immediately without restarting the proxy process manually.
+
+```bash
+curl -X POST http://localhost:8741/v1/accounts/set_active \
+  -H "Content-Type: application/json" \
+  -d '{"email": "user@gmail.com"}'
+```
+
 ### Account Rotation
 
 When running with 2+ accounts, the proxy **automatically rotates** to the next account when:
@@ -128,7 +138,7 @@ The rotation:
 - Waits a short cooldown (5–10s with jitter)
 - Refreshes the next account's access token via OAuth
 - Restarts the backend to get a clean session
-- Clears all rate limiter state
+- Resets cooldown windows while preserving exhaustion counters
 
 Use `--quota-cap 0.2` (default) or set `ZEROGRAVITY_QUOTA_CAP=0.2` to rotate proactively when any model exceeds 80% usage. When all accounts are exhausted, the proxy parks and waits for quota to reset. Set to `0` to disable proactive rotation.
 
@@ -218,6 +228,7 @@ curl http://localhost:8741/v1beta/models/gemini-3-flash:generateContent \
 | `GET/POST` | `/v1/search`                      | Web Search via Google grounding (WIP) |
 | `POST`     | `/v1/token`                       | Set OAuth token at runtime            |
 | `POST`     | `/v1/accounts`                    | Add account (email + refresh_token)   |
+| `POST`     | `/v1/accounts/set_active`         | Set active account at runtime          |
 | `GET`      | `/v1/accounts`                    | List stored accounts                  |
 | `DELETE`   | `/v1/accounts`                    | Remove account by email               |
 | `GET`      | `/v1/usage`                       | Proxy token usage                     |

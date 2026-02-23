@@ -79,6 +79,7 @@ docker run -d --name zerogravity \
 | `ZEROGRAVITY_MACHINE_ID_PATH` | Auto-detected           | Path to Antigravity's machine ID file                | `/path/to/machineid`        |
 | `ZEROGRAVITY_CLIENT_VERSION`  | Auto-detected           | Override the client version string                   | `1.15.8`                    |
 | `ZEROGRAVITY_MAX_RETRY_DELAY` | Internal default        | Max retry delay in seconds on rate limit errors      | `120`                       |
+| `ZEROGRAVITY_API_BODY_LIMIT_MB` | `32` (clamped `1..100`) | Max request body size in MiB for API routes (`/v1/*`) | `64`                        |
 | `SSL_CERT_FILE`               | System default          | Custom CA certificate bundle path                    | `/etc/ssl/certs/ca.pem`     |
 | `RUST_LOG`                    | `info`                  | Log level                                            | `debug`                     |
 
