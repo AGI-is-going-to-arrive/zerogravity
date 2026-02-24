@@ -72,6 +72,6 @@ These require a running proxy (Linux / Docker).
 
 | Command            | Description                                        |
 | ------------------ | -------------------------------------------------- |
-| `zg report`        | Generate full diagnostic report for bug reports    |
+| `zg report`        | Generate bounded diagnostic snapshot for bug reports |
 | `zg report <id>`   | Bundle a specific trace into a shareable `.tar.gz` |
 | `zg replay <file>` | Re-send a bundled trace to the local proxy         |
